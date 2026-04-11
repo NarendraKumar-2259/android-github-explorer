@@ -32,7 +32,8 @@ mockk = "1.13.8"
 
 #ViewModel
 lifecycleViewModelCompose = "2.10.0"
-firebaseFirestoreKtx = "26.1.2"
+
+
 
 
 [libraries]
@@ -75,7 +76,8 @@ mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 ##Viewmodel
 viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleViewModelCompose" }
-firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
+viewmodel-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewModelCompose" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

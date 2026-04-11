@@ -48,7 +48,6 @@ dependencies {
 
     //Room
     implementation(libs.room.runtime)
-    implementation(libs.firebase.firestore.ktx)
     ksp(libs.room.compiler)
     implementation(libs.room.ktx)
 
@@ -68,6 +67,7 @@ dependencies {
 
     //viewmodel compose
     implementation(libs.viewmodel.compose)
+    implementation(libs.viewmodel.lifecycle)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
