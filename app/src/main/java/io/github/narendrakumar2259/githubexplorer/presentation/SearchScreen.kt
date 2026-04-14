@@ -8,12 +8,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -33,6 +36,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -46,11 +50,13 @@ fun SearchScreen(navController: NavHostController) {
     val viewModel: UserViewModel = hiltViewModel()
     val uiState = viewModel.userDetailsState.collectAsStateWithLifecycle().value
     val searchQuery = viewModel.searchQuery.collectAsStateWithLifecycle().value
+    val focusManager = LocalFocusManager.current
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF0D1117))
+            .windowInsetsPadding(WindowInsets.statusBars)
             .padding(16.dp)
     ) {
         Text(
@@ -92,7 +98,9 @@ fun SearchScreen(navController: NavHostController) {
                 singleLine = true
             )
             Button(
-                onClick = { viewModel.fetchUserDetails(searchQuery) },
+                onClick = {
+                    focusManager.clearFocus()
+                    viewModel.fetchUserDetails(searchQuery) },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF238636)),
                 shape = RoundedCornerShape(6.dp),
                 contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
@@ -132,6 +140,7 @@ fun SearchScreen(navController: NavHostController) {
             is UiState.Success -> {
                 LaunchedEffect(uiState.userDetails.login) {
                     navController.navigate("${Route.UserDetail}/${uiState.userDetails.login}")
+                    viewModel.resetState()
                 }
             }
             is UiState.Error -> {
