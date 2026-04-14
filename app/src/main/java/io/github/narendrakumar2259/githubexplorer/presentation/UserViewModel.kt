@@ -56,4 +56,9 @@ class UserViewModel @Inject constructor(
     fun updateSearchQuery(query: String) {
         _searchQuery.value = query
     }
+
+    fun resetState() {
+        _userDetailsState.value = UiState.Idle
+        _searchQuery.value = ""
+    }
 }

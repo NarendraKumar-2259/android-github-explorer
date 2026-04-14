@@ -24,7 +24,7 @@ fun NavGraph(navController: NavHostController) {
             )
         ) { backStackEntry ->
             val username = backStackEntry.arguments?.getString("username") ?: ""
-            UserDetailScreen(username = username)
+            UserDetailScreen(username = username, navController = navController)
         }
     }
 }
