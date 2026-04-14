@@ -25,20 +25,20 @@ class UserViewModel @Inject constructor(
     private var _searchQuery = MutableStateFlow("")
     val searchQuery = _searchQuery.asStateFlow()
 
-    init {
-        viewModelScope.launch {
-            _searchQuery
-                .debounce(300)
-                .distinctUntilChanged()
-                .collect { query ->
-                    if (query.isNotEmpty()) {
-                        fetchUserDetails(query)
-                    } else {
-                        _userDetailsState.value = UiState.Idle
-                    }
-                }
-        }
-    }
+//    init {
+//        viewModelScope.launch {
+//            _searchQuery
+//                .debounce(300)
+//                .distinctUntilChanged()
+//                .collect { query ->
+//                    if (query.length >= 3) {
+//                        fetchUserDetails(query)
+//                    } else {
+//                        _userDetailsState.value = UiState.Idle
+//                    }
+//                }
+//        }
+//    }
 
     fun fetchUserDetails(username: String) {
         _userDetailsState.value = UiState.Loading
